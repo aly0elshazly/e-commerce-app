@@ -27,7 +27,6 @@ export class AuthController {
   @Get("/login")
   async login(@Body() loginDTO : LoginDTO){
     const accessToken =  await this.authService.login(loginDTO)
-    //console.log(accessToken);
     
     return{
       message:"login successfully",

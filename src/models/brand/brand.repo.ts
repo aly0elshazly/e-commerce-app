@@ -3,7 +3,7 @@ import { Brand } from "./brand.schema";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, PopulateOptions, ProjectionType, QueryOptions, RootFilterQuery } from "mongoose";
 
-export class CategoryRepo extends AbstractRepo<Brand>{
+export class BrandRepo extends AbstractRepo<Brand>{
     constructor(@InjectModel(Brand.name) private readonly categoryModel:Model<Brand>){
         super(categoryModel)
     }

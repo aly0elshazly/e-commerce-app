@@ -14,5 +14,6 @@ import { CloudnairyService } from '@common/helpers/cloudnairy.helper';
     MongooseModule.forFeature([{name:Category.name,schema:categorySchema}])],
   controllers: [CategoryController],
   providers: [CategoryService,CategoryRepo,CategoryFactoryService,JwtService,CloudnairyService],
+  exports:[CategoryService,CategoryRepo,CategoryFactoryService]
 })
 export class CategoryModule {}

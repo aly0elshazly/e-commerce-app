@@ -1,4 +1,4 @@
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { SchemaTypes, Types } from "mongoose";
 
 @Schema({timestamps:true})
@@ -17,6 +17,11 @@ export class Brand{
     @Prop({type:SchemaTypes.ObjectId,required:true,ref:"User"})
     updatedBy:Types.ObjectId;
 
-    @Prop()
-    logo:object;
+    @Prop({type: {url: { type: String },publicId: { type: String }},required: false})
+      logo?: {
+      url?: string;
+      publicId?: string;
+      };
 }
+
+export const brandSchema = SchemaFactory.createForClass(Brand)

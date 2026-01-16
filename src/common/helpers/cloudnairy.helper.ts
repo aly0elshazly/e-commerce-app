@@ -6,12 +6,6 @@ import * as streamifier from 'streamifier';
 @Injectable()
 export class CloudnairyService {
   constructor(private readonly config: ConfigService) {
-    console.log({
-      cloud_name: this.config.get("cloud").cloud_name,
-      api_key: this.config.get("cloud").api_key,
-      api_secret: this.config.get("cloud").api_secret
-    });
-
     cloudinary.config({
       cloud_name: this.config.get("cloud").cloud_name,
       api_key: this.config.get("cloud").api_key,

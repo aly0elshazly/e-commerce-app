@@ -13,6 +13,7 @@ export class CategoryFactoryService{
         category.slug = slugify(createCategoryDTO.name,{replacement:'_',lower:true,trim:true});
         category.createdBy = user._id;
         category.logo = createCategoryDTO.logo;
+        
         category.updatedBy = user._id;
         return category;
     }

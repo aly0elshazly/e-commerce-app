@@ -19,7 +19,7 @@ export class CategoryController {
 
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto,@User() user:any) {
-    const category = await this.categoryFactoryService.createCategory(createCategoryDto,user);
+    const category =  this.categoryFactoryService.createCategory(createCategoryDto,user);
     const createdCategory =await  this.categoryService.create(category);
     return {
       message:"category created successfully",
@@ -107,8 +107,9 @@ export class CategoryController {
     publicId
     );
     if (!result || typeof result !== 'object' || !('secure_url' in result)) {
-  throw new BadRequestException('Failed to upload to Cloudinary');
-}
+  throw new BadRequestException('InternalServerError');
+     } 
+     await this.categoryService.updateLogo(id,result.secure_url,result.publicId)
 
 
     return {

@@ -17,9 +17,11 @@ export class Category{
     @Prop({type:SchemaTypes.ObjectId,required:true,ref:"User"})
     updatedBy:Types.ObjectId;
 
-    @Prop()
-    logo:string 
+    @Prop({ type: String })
+    logo: string; 
 
+    @Prop({ type: String })
+    logoPublicId: string;
 
 }
 

@@ -2,6 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from '@nestjs/common
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category, CategoryRepo } from '@models/index';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class CategoryService {
@@ -25,7 +26,7 @@ export class CategoryService {
 
   }
 
-  async findOne(id: string) {
+  async findOne(id: string | Types.ObjectId) {
     const categoryExist = await this.categoryRepo.getOne({_id:id},{},{populate:[{path:'createdBy'},{path:'updatedBy'}]})
     if(!categoryExist) throw new NotFoundException("category doesn't exist ")
     return categoryExist
@@ -43,5 +44,11 @@ export class CategoryService {
     if(!categoryExist) throw new NotFoundException("category not found")
     return categoryExist
 
+  }
+  async updateLogo(id:string,logoUrl:string,logoPublicId:string){
+    const category = await this.categoryRepo.getOne({_id:id})
+    if(!category) throw new ConflictException("category not found")
+    return await this.categoryRepo.updateOne({_id:id},{logo:logoUrl,logoPublicId:logoPublicId},{new:true})
+    
   }
 }

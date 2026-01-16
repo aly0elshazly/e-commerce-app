@@ -1,0 +1,52 @@
+import { DiscountType } from "@common/types";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { SchemaTypes, Types } from "mongoose";
+
+export class UserCopun{
+    @Prop({type:SchemaTypes.ObjectId,ref:"User"})
+    customerId:Types.ObjectId;
+
+    @Prop({type:Number})
+    count:number;
+
+}
+
+@Schema({timestamps:true})
+export class Copun{
+    readonly _id:Types.ObjectId;
+
+    @Prop({type:String,required:true})
+    code:string;
+
+    @Prop({type:Number,required:true})
+    discountAmount:number;
+
+    @Prop({type:String,enum:DiscountType,default:DiscountType.fixed_amount})
+    discountType:DiscountType;
+
+    @Prop({type:Date,required:true})
+    fromDate:Date;
+
+    @Prop({type:Date,required:true})
+    toDate:Date;
+
+    @Prop({type:SchemaTypes.ObjectId,ref:"User",required:true})
+    createdBy:Types.ObjectId;
+
+    @Prop({type:SchemaTypes.ObjectId,ref:"User",required:true})
+    updatedBy:Types.ObjectId;
+
+    @Prop({type:Boolean,default:true})
+    active:boolean;
+    
+    @Prop({type:[UserCopun]})
+    usedBy: UserCopun[];
+
+    @Prop({type:[UserCopun]})
+    assignTo?:UserCopun[]
+
+
+    
+}
+
+export const copunSchema = SchemaFactory.createForClass(Copun)
